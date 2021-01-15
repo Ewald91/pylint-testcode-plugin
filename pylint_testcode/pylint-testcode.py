@@ -83,9 +83,23 @@ class AbsoluteUrlChecker(checkers.BaseChecker):
 
     def is_absolute(self, url):
         return bool(urlparse(url).netloc)
-        
+
+    def get_driver_variable(self, node)
+        for child in node.body:
+            if child.value.func.expr.name == 'webdriver':
+                return child.targets[0].name # return webdriver instance name 
+        return False
+
     def find_driver_instance(self, node):
-        pass
+        driver = get_driver_variable(node)
+        
+        if driver:
+            for child in node.body:
+                if  (child.value.func.attrname == 'get' and # check on .get method
+                    child.value.func.expr.name == driver): # see if .get method is called on webdrivers instance
+                    if self.is_absolute(child.value.args[0].value):# find input string to .get method
+                        self.add_message('no-absolute-url', node=node)
+
 
     def visit_functiondef(self, node):
         pass    
