@@ -5,14 +5,15 @@ with open("README.md", "r") as fh:
 
 setup(
     name='pylint-testcode-plugin',
-    version='0.0.1',
+    version='0.0.2',
     url='https://github.com/Ewald91/pylint-testcode-plugin',
     author="Ewald Verhoeven",
     author_email="ewald@testcoders.nl",
     description='This plugin assists in writing high-quality testcode',
     py_modules=["pylint-testcode"],
     package_dir={'':'pylint_testcode'},
-    classifiers=["Programming Language :: Python :: 3",
+    classifiers=['Development Status :: 3 - Alpha',
+                "Programming Language :: Python :: 3",
                 "Programming Language :: Python :: 3.6",
                 "Programming Language :: Python :: 3.7",
                 "License :: OSI Approved :: GNU General Public License (GPL)",
@@ -23,5 +24,7 @@ setup(
     long_description_content_type="text/markdown",
     install_requires= [
         "pylint ~=2.6.0"
-    ]
+    ],
+    license='GPLv3',
+    keywords=['pylint', 'unittest', 'plugin'],
 )
