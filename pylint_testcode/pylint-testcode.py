@@ -1,7 +1,11 @@
+from urllib.parse import urlparse
+
 import astroid
 
 from pylint import checkers
 from pylint import interfaces
+
+
 
 
 class AssertionsChecker(checkers.BaseChecker):
@@ -14,7 +18,7 @@ class AssertionsChecker(checkers.BaseChecker):
     name = 'missing-assertion'
 
     msgs = {
-        'W9999': ("Missing assertion(s) in test",
+        'E9999': ("Missing assertion(s) in test",
                   'missing-assertion',
                   'You have a test or testcase that has NO assertion. '
                   'Make sure every test function has an assertion!'
@@ -25,7 +29,7 @@ class AssertionsChecker(checkers.BaseChecker):
         self._testcount = 0
 
     def close(self):
-        print(f'AssertionChecker finished: found and checked {self._testcount} tests!')
+        print(f'AssertionChecker finished: found and checked {self._testcount} test methods and functions!')
 
     def is_test(self, node):
         '''
@@ -58,7 +62,36 @@ class AssertionsChecker(checkers.BaseChecker):
         
             if not assertion:
                 self.add_message('missing-assertion', node=node)
-                       
+
+
+class AbsoluteUrlChecker(checkers.BaseChecker):
+    '''
+    This checker will track down all test-methods and functions and
+    check if they include at least 1 assertion of any kind.
+    '''
+    __implements__ = interfaces.IAstroidChecker
+
+    name = 'no-absolute-url'
+
+    msgs = {
+        'W9999': ("No absolute url in open browser command.",
+                  'no-absolute-url',
+                  'Avoid using absolute urls. Use a base-url in your project '
+                  'configuration instead. '
+                  ),
+        }
+
+    def is_absolute(self, url):
+        return bool(urlparse(url).netloc)
+        
+    def find_driver_instance(self, node):
+        pass
+
+    def visit_functiondef(self, node):
+        pass    
+
+
+
 def register(linter):
     '''
     Required method for pylint plugins
