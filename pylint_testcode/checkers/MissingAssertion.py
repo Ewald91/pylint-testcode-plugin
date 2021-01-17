@@ -1,11 +1,8 @@
-from urllib.parse import urlparse
-
 import astroid
-
 from pylint import checkers
 from pylint import interfaces
 
-
+from pylint_testcode.__pkginfo__ import BASE_ID
 
 
 class AssertionsChecker(checkers.BaseChecker):
@@ -18,7 +15,7 @@ class AssertionsChecker(checkers.BaseChecker):
     name = 'missing-assertion'
 
     msgs = {
-        'E9999': ("Missing assertion(s) in test",
+        'E%d01' % BASE_ID: ("Missing assertion in test",
                   'missing-assertion',
                   'You have a test or testcase that has NO assertion. '
                   'Make sure every test function has an assertion!'
@@ -30,6 +27,7 @@ class AssertionsChecker(checkers.BaseChecker):
 
     def close(self):
         print(f'AssertionChecker finished: found and checked {self._testcount} test methods and functions!')
+        print('Test!!')
 
     def is_test(self, node):
         '''
@@ -62,52 +60,3 @@ class AssertionsChecker(checkers.BaseChecker):
         
             if not assertion:
                 self.add_message('missing-assertion', node=node)
-
-
-class AbsoluteUrlChecker(checkers.BaseChecker):
-    '''
-    This checker will track down all test-methods and functions and
-    check if they include at least 1 assertion of any kind.
-    '''
-    __implements__ = interfaces.IAstroidChecker
-
-    name = 'no-absolute-url'
-
-    msgs = {
-        'W9999': ("No absolute url in open browser command.",
-                  'no-absolute-url',
-                  'Avoid using absolute urls. Use a base-url in your project '
-                  'configuration instead. '
-                  ),
-        }
-
-    def is_absolute(self, url):
-        return bool(urlparse(url).netloc)
-
-    def get_driver_variable(self, node)
-        for child in node.body:
-            if child.value.func.expr.name == 'webdriver':
-                return child.targets[0].name # return webdriver instance name 
-        return False
-
-    def find_driver_instance(self, node):
-        driver = get_driver_variable(node)
-        
-        if driver:
-            for child in node.body:
-                if  (child.value.func.attrname == 'get' and # check on .get method
-                    child.value.func.expr.name == driver): # see if .get method is called on webdrivers instance
-                    if self.is_absolute(child.value.args[0].value):# find input string to .get method
-                        self.add_message('no-absolute-url', node=node)
-
-
-    def visit_functiondef(self, node):
-        pass    
-
-
-
-def register(linter):
-    '''
-    Required method for pylint plugins
-    '''
-    linter.register_checker(AssertionsChecker(linter))

@@ -3,12 +3,12 @@ This plugin will assist in writing better testcode. It will push you to follow b
 
 ## Installation
 
-`pip install pylint-unittest`
+`pip install pylint-testcode-plugin`
 
 ## Usage
 You can easily load the plugin with the `--load-plugins` flag like below.
 
-`pylint --load-plugins=pylint-unittest YOUR_MODULE.py`
+`pylint --load-plugins pylint_testcode YOUR_MODULE.py`
 
 ## Checkers
 Below an overview of the checkers that come with this plugin. 

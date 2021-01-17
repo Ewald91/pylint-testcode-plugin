@@ -2,6 +2,7 @@
 module doc-string
 '''
 import unittest
+from selenium import webdriver
 
 
 class MyTestCase(unittest.TestCase):
@@ -22,6 +23,10 @@ class MyTestCase(unittest.TestCase):
         '''
         method doc-string
         '''
+        
+        driver = webdriver.Firefox()
+        driver.get("https://www.google.nl")
+
         some_variable = 1
         self.assertEqual(some_variable,1)
         # 1 + 1
