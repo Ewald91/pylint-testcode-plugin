@@ -17,8 +17,8 @@ class AbsoluteUrlChecker(checkers.BaseChecker):
     msgs = {
         'W%d01' % BASE_ID: ("No absolute url in open browser command.",
                   'no-absolute-url',
-                  'Avoid using absolute urls. Use a base-url in your project '
-                  'configuration instead. '
+                  'Avoid using absolute url in open browser commands. Use a' 
+                  ' base-url in your project configuration instead. '
                   ),
         }
     def __init__(self, linter=None):
