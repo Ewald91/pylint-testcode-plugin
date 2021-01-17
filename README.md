@@ -16,5 +16,5 @@ Below an overview of the checkers that come with this plugin.
 
 | Name | Message : Type | Description |
 | --- | --- | --- |
-| AssertionsChecker | missing-assertion : error | You have a test or testcase that has NO assertion. Make sure every test function has an assertion! |
-| AbsoluteUrlChecker | no-absolute-url : warning | Avoid using absolute url in open browser commands. Use a base-url in your project configuration instead. |
+| AssertionsChecker | missing-assertion (error) | You have a test or testcase that has NO assertion. Make sure every test function has an assertion! |
+| AbsoluteUrlChecker | no-absolute-url (warning) | Avoid using absolute url in open browser commands. Use a base-url in your project configuration instead. |
